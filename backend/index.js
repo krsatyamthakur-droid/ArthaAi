@@ -24,6 +24,10 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 3000;
 const MONGO_URI = process.env.MONGO_URI;
 
+if (!MONGO_URI) {
+    console.error("CRITICAL ERROR: MONGO_URI is missing. Please add it to your environment variables.");
+}
+
 mongoose
     .connect(MONGO_URI)
     .then(() => {
