@@ -1,0 +1,125 @@
+/* ── Wrapper fills the hero-visual absolutely ── */
+.wm-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+/* ── Canvas fills the wrapper exactly ── */
+.wm-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* ── City pings ── */
+.wm-city {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  cursor: default;
+}
+
+.wm-dot-city {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.8);
+}
+
+.wm-ping, .wm-ping.p2 {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid var(--clr);
+  opacity: 0;
+  pointer-events: none;
+  animation: wmPing 2.4s ease-out infinite;
+}
+.wm-ping.p2 { animation-delay: 1.2s; }
+
+@keyframes wmPing {
+  0%   { transform: scale(0.6); opacity: 0.8; }
+  100% { transform: scale(3.2); opacity: 0; }
+}
+
+/* ── Tooltip (shows on hover) ── */
+.wm-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: rgba(255,255,255,0.97);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 8px;
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 20;
+}
+.wm-city:hover .wm-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.wm-t-name { font-size: 10px; font-weight: 700; color: #09101F; letter-spacing: 0.02em; }
+.wm-t-val  { font-size: 12px; font-weight: 800; color: #09101F; letter-spacing: -0.02em; }
+.wm-t-chg  { font-size: 9px;  font-weight: 700; }
+
+/* ── Live ticker ── */
+.wm-ticker {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.93);
+  border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 100px;
+  padding: 7px 14px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.09);
+  font-size: 11px;
+  z-index: 20;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.wm-ticker.in  { opacity: 1; transform: translateY(0); }
+.wm-ticker.out { opacity: 0; transform: translateY(5px); }
+
+.wm-live {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #E8501A;
+  flex-shrink: 0;
+}
+.wm-live-dot {
+  width: 6px; height: 6px;
+  background: #E8501A;
+  border-radius: 50%;
+  animation: livePulse 1.4s ease-in-out infinite;
+}
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.35; transform: scale(0.6); }
+}
+.wm-tx-icon { font-size: 12px; flex-shrink: 0; }
+.wm-tx-text { color: #3A4260; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.wm-tx-amt  { font-weight: 800; color: #09101F; }
