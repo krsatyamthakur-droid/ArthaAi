@@ -1,5 +1,6 @@
 [build]
-  command = "cd 'frontend/financial web' && npm install && npm run build"
+  # Install both backend and frontend dependencies, then build the frontend
+  command = "npm install --prefix backend && cd 'frontend/financial web' && npm install && npm run build"
   publish = "frontend/financial web/dist"
   functions = "netlify/functions"
 
@@ -10,6 +11,6 @@
 
 [functions]
   node_bundler = "esbuild"
-  # This ensures the backend folder (with your models/index.js) is included
+  # Ensures that the backend folder (with your models/index.js) is included in the zip
   external_node_modules = ["express", "mongoose", "serverless-http"]
   included_files = ["backend/**"]

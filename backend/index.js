@@ -28,9 +28,12 @@ mongoose
     .connect(MONGO_URI)
     .then(() => {
         console.log("Connected to MongoDB");
-        app.listen(PORT, () => {
-            console.log(`Server started on port ${PORT}`);
-        });
+        // Only start the server listener if we are NOT in a production/serverless environment
+        if (process.env.NODE_ENV !== 'production') {
+            app.listen(PORT, () => {
+                console.log(`Server started on port ${PORT}`);
+            });
+        }
     })
     .catch((err) => {
         console.error("MongoDB connection error:", err);
